@@ -9,7 +9,6 @@ from django.template.loader import render_to_string as render_file
 
 from emencia.django.newsletter.models import Newsletter
 from emencia.django.newsletter.models import ContactMailingStatus
-from emencia.django.newsletter.utils import render_string
 from emencia.django.newsletter.utils.newsletter import body_insertion
 from emencia.django.newsletter.utils.newsletter import track_links
 from emencia.django.newsletter.utils.tokens import untokenize
@@ -18,6 +17,7 @@ from emencia.django.newsletter.settings import (TRACKING_LINKS,
                                                 TEXT_TEMPLATE,
                                                 SEND_PLAINTEXT)
 
+from emencia.django.newsletter.utils import render_string
 
 def render_newsletter(request, slug, context):
     """Return a newsletter in HTML format"""
