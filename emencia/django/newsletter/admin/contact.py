@@ -4,7 +4,7 @@ from datetime import datetime
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import reverse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
@@ -141,8 +141,7 @@ class ContactAdmin(admin.ModelAdmin):
                    'root_path': self.admin_site.root_path,
                    'app_label': opts.app_label}
 
-        return render_to_response(request, 'newsletter/contact_import.html',
-                                  context)
+        return render(request, 'newsletter/contact_import.html', context)
 
     def filtered_request_queryset(self, request):
         """Return queryset filtered by the admin list view"""
