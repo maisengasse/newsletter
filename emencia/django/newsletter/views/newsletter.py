@@ -1,11 +1,12 @@
 """Views for emencia.django.newsletter Newsletter"""
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import render_to_response
 
 from django.contrib.sites.models import Site
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string as render_file
+from emencia.django.newsletter.utils import render_string
 
 from emencia.django.newsletter.models import Newsletter
 from emencia.django.newsletter.models import ContactMailingStatus
@@ -17,7 +18,6 @@ from emencia.django.newsletter.settings import (TRACKING_LINKS,
                                                 TEXT_TEMPLATE,
                                                 SEND_PLAINTEXT)
 
-from emencia.django.newsletter.utils import render_string
 
 def render_newsletter(request, slug, context):
     """Return a newsletter in HTML format"""
@@ -42,7 +42,7 @@ def render_newsletter(request, slug, context):
                     'PREVIEW' : True
                   })
 
-    return render(request, template, context)
+    return render_to_response(request, template, context)
 
 
 @login_required
