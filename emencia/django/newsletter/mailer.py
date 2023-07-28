@@ -196,18 +196,22 @@ class Mailer(object):
             content_renderer = None
 
         NEWSLETTER_PORTAL_URL = getattr(settings, "NEWSLETTER_PORTAL_URL", settings.PORTAL_URL)
-        context = {'contact': contact,
-                           'domain': domain,
-                           'request' : request,
-                           'cms_content_renderer' : content_renderer,
-                           'newsletter': self.newsletter,
-                           'object': self.newsletter,
-                           'uidb36': uidb36, 'token': token,
-                           'PORTAL_URL' : settings.PORTAL_URL,
-                           'NEWSLETTER_PORTAL_URL' : NEWSLETTER_PORTAL_URL,
-                           'MEDIA_URL' : "http://" + domain + settings.MEDIA_URL,
-                           'NEWSLETTER_MEDIA_URL' : NEWSLETTER_MEDIA_URL, }
 
+        context = {
+            'contact': contact,
+            'domain': domain,
+            'request' : request,
+            'cms_content_renderer' : content_renderer,
+            'newsletter': self.newsletter,
+            'object': self.newsletter,
+            'uidb36': uidb36, 'token': token,
+            'PORTAL_URL' : settings.PORTAL_URL,
+            'NEWSLETTER_PORTAL_URL' : NEWSLETTER_PORTAL_URL,
+            'MEDIA_URL' : "http://" + domain + settings.MEDIA_URL,
+            'NEWSLETTER_MEDIA_URL' : NEWSLETTER_MEDIA_URL,
+        }
+
+        context.update(getattr(settings, "NEWSLETTER_ADDITIONAL_CONTEXT", {}))
 
         content = self.newsletter_template.render(SekizaiContext(context))
 
