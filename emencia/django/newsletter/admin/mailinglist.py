@@ -74,8 +74,8 @@ class MailingListAdmin(admin.ModelAdmin):
         new_mailing = MailingList(name=_('Merging list at %s') % when,
                                   description=_('Mailing list created by merging at %s') % when)
         new_mailing.save()
-        new_mailing.subscribers = list(subscribers.keys())
-        new_mailing.unsubscribers = list(unsubscribers.keys())
+        new_mailing.subscribers.set(list(subscribers.keys()))
+        new_mailing.unsubscribers.set(list(unsubscribers.keys()))
 
         self.message_user(request, _('%s succesfully created by merging.') % new_mailing)
         return HttpResponseRedirect(reverse('admin:newsletter_mailinglist_change',
